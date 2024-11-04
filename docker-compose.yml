@@ -1,0 +1,30 @@
+version: '3'
+
+services:
+  savapage:
+    build:
+      context: .
+      dockerfile: savapage.Dockerfile
+    image: jboillot/savapage:latest
+    container_name: savapage
+    ports:
+      - '8631:8631'
+      - '8632:8632'
+    volumes:
+      - savapage_data:/opt/savapage
+      - savapage_cups:/etc/cups
+    networks:
+      my_network:
+        ipv4_address: 192.168.200.10
+
+volumes:
+  savapage_data:
+  savapage_cups:
+
+
+networks:
+  my_network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.200.0/24
